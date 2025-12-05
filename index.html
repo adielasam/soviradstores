@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovriad Global Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS Styles --- */
+
+        :root {
+            --brand-navy: #0a1930; /* Deep Navy Blue */
+            --brand-green: #28a745; /* Vibrant Green */
+            --brand-white: #ffffff;
+            --brand-light-gray: #f4f4f4;
+            --text-dark: #333;
+            --whatsapp-color: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--brand-light-gray);
+            color: var(--text-dark);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--brand-navy);
+            color: var(--brand-white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--brand-green);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--brand-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: var(--brand-green);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--brand-green);
+            color: var(--brand-white);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Main Container */
+        main {
+            padding: 2rem 5%;
+            min-height: 80vh;
+        }
+
+        /* Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* --- Hero Slider --- */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            background-color: #ddd;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            color: var(--brand-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            max-width: 500px;
+        }
+
+        .slide-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(10, 25, 48, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+
+        /* --- Product Grid --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--brand-navy);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--brand-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image-container {
+            height: 200px;
+            overflow: hidden;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--brand-navy);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--brand-green);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--brand-navy);
+            color: var(--brand-white);
+            border: none;
+            padding: 0.8rem;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--brand-green);
+        }
+
+        /* --- About & Contact Layout --- */
+        .content-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-box ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .content-box ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-box ul li::before {
+            content: '✓';
+            color: var(--brand-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight-link {
+            display: inline-block;
+            background-color: var(--brand-green);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* --- Cart Modal --- */
+        .cart-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .cart-modal {
+            background-color: var(--brand-white);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-cart {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--brand-navy);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            margin-top: 1.5rem;
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--brand-navy);
+        }
+
+        .checkout-btn {
+            background-color: var(--whatsapp-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .checkout-btn:hover {
+            background-color: #1ebe57;
+        }
+
+        /* Floating WhatsApp Button */
+        .float-whatsapp {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: var(--whatsapp-color);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .float-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brand-navy);
+            color: var(--brand-white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Sovriad <span>Global Store</span></div>
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('about')">About Us</a></li>
+                <li><a onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="page-section active">
+            
+            <div class="slider-container">
+                <button class="slider-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="slider-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+                
+                <div class="slide active">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 1">
+                    <div class="slide-content">
+                        <h2>Welcome to Sovriad Global</h2>
+                        <p>Sell faster, Buy smarter.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 2">
+                     <div class="slide-content">
+                        <h2>Quality Products</h2>
+                        <p>Discover the best sellers in Port Harcourt.</p>
+                    </div>
+                </div>
+                 <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 3">
+                     <div class="slide-content">
+                        <h2>Nationwide Delivery</h2>
+                        <p>Shop the latest trends today.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Trending Products in Nigeria</h2>
+            
+            <div class="product-grid" id="product-grid">
+                </div>
+        </section>
+
+        <section id="about" class="page-section">
+             <h2 class="section-title">About Sovriad Global Services</h2>
+             <div class="content-box">
+                 <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                     <strong>SGS is your sure plug 👍. All items are sold at wholesale prices.</strong>
+                 </p>
+                 
+                 <ul>
+                     <li>Planning to revamp your kitchen with quality yet super affordable items?</li>
+                     <li>Need unique souvenirs based on your budget?</li>
+                     <li>Need to slay on a budget with affordable fashion items?</li>
+                     <li>Want to look beautiful using quality, long-lasting yet affordable makeup products?</li>
+                 </ul>
+
+                 <p>Be sure to get <strong>Quality Products, Premium Customer Service, and Swift Delivery</strong> when you patronize us.</p>
+                 <br>
+                 <p>Our location is <strong>Port Harcourt</strong>, but we offer <strong>Nationwide delivery</strong>.</p>
+                 
+                 <div style="margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1.5rem; text-align: center;">
+                    <p>We're Google verified! We will appreciate if you drop reviews and ratings.</p>
+                    <p>Thank you for choosing Sovriad Global Services.</p>
+                    <br>
+                    <a href="https://bit.ly/3YK7GLH" target="_blank" class="highlight-link">
+                        <i class="fab fa-google"></i> Review us on Google
+                    </a>
+                 </div>
+             </div>
+        </section>
+
+        <section id="contact" class="page-section">
+             <h2 class="section-title">Contact Us</h2>
+             <div class="content-box" style="text-align: center;">
+                 <p>Have questions? We are here to help.</p>
+                 <br>
+                 <p><i class="fas fa-phone"></i> <strong>Phone:</strong> 08162337303</p>
+                 <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> 08162337303</p>
+                 <br>
+                 <p><strong>Location:</strong> Port Harcourt, Nigeria</p>
+                 <p><strong>Delivery:</strong> Nationwide</p>
+                 <br>
+                 <a href="https://bit.ly/3YK7GLH" target="_blank" style="color: var(--brand-navy); font-weight: bold;">
+                    <i class="fas fa-map-marker-alt"></i> Find us on Google Maps
+                 </a>
+             </div>
+        </section>
+
+    </main>
+
+    <a href="https://chat.whatsapp.com/HrzCUQQ7XF0LRBSC0K7zih?mode=hqrt2" class="float-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="cart-modal-overlay" id="cart-overlay">
+        <div class="cart-modal">
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items-list">
+                <p>Your cart is currently empty.</p>
+            </div>
+            <div class="cart-total">
+                Total: ₦<span id="cart-total-amount">0.00</span>
+            </div>
+            
+            <a href="https://chat.whatsapp.com/HrzCUQQ7XF0LRBSC0K7zih?mode=hqrt2" target="_blank" class="checkout-btn">
+                <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Sovriad Global Store. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        /* --- JavaScript Functionality --- */
+
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Mango Shoe Premium",
+                price: 15000,
+                // Make sure to add this file to your 'image' folder
+                image: '<img src="image/mangoshoe.jpg" alt="Mango Shoe" onerror="this.src=\'https://via.placeholder.com/300x200?text=Mango+Shoe\'">' 
+            },
+            {
+                id: 2,
+                name: "Professional Speakers",
+                price: 85000,
+                image: '<img src="image/speakers.jpg" alt="Speakers" onerror="this.src=\'https://via.placeholder.com/300x200?text=Speakers\'">'
+            },
+            {
+                id: 3,
+                name: "Quality Office Shirt",
+                price: 7500,
+                image: '<img src="image/shirt.jpg" alt="Shirt" onerror="this.src=\'https://via.placeholder.com/300x200?text=Office+Shirt\'">'
+            },
+            {
+                id: 4,
+                name: "Slim Laptop Pro",
+                price: 450000,
+                image: '<img src="image/laptop.jpg" alt="Laptop" onerror="this.src=\'https://via.placeholder.com/300x200?text=Laptop\'">'
+            },
+            {
+                id: 5,
+                name: "Wireless Headphones",
+                price: 25000,
+                 image: '<img src="image/headphones.jpg" alt="Headphones" onerror="this.src=\'https://via.placeholder.com/300x200?text=Headphones\'">'
+            },
+             {
+                id: 6,
+                name: "Smart Watch Series 5",
+                price: 30000,
+                 image: '<img src="image/smartwatch.jpg" alt="Smartwatch" onerror="this.src=\'https://via.placeholder.com/300x200?text=Smart+Watch\'">'
+            }
+        ];
+
+        let cart = [];
+
+        // --- Functions ---
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById('cart-overlay').style.display = 'none';
+        }
+
+        // Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ''; 
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('product-card');
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        ${product.image} 
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3 class="product-title">${product.name}</h3>
+                            <p class="product-price">₦${formatCurrency(product.price)}</p>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Cart Logic
+        function addToCart(productId) {
+            const productToAdd = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...productToAdd, quantity: 1 });
+            }
+            updateCartUI();
+            alert(`${productToAdd.name} added to cart!`);
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+
+            const cartList = document.getElementById('cart-items-list');
+            const cartTotalElement = document.getElementById('cart-total-amount');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p>Your cart is currently empty.</p>';
+                cartTotalElement.innerText = '0.00';
+                return;
+            }
+
+            cartList.innerHTML = '';
+            let grandTotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                grandTotal += itemTotal;
+
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <div>
+                        <div class="cart-item-title">${item.name}</div>
+                        <small>₦${formatCurrency(item.price)} x ${item.quantity}</small>
+                    </div>
+                    <div>₦${formatCurrency(itemTotal)}</div>
+                `;
+                cartList.appendChild(itemElement);
+            });
+
+            cartTotalElement.innerText = formatCurrency(grandTotal);
+        }
+
+        function toggleCart() {
+            const overlay = document.getElementById('cart-overlay');
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'flex';
+                updateCartUI();
+            }
+        }
+
+        function formatCurrency(amount) {
+            return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Initialization
+        renderProducts();
+        showSlide(0);
+
+    </script>
+</body>
+</html>
