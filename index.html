@@ -176,6 +176,28 @@
             color: var(--brand-navy);
         }
 
+        /* Filter Tabs */
+        .filter-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 1px solid var(--brand-navy);
+            background: transparent;
+            color: var(--brand-navy);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--brand-navy);
+            color: white;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -197,18 +219,30 @@
         }
 
         .product-image-container {
-            height: 200px;
+            height: 250px; 
             overflow: hidden;
             background-color: #eee;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .product-image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .category-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--brand-green);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
         }
 
         .product-info {
@@ -223,6 +257,7 @@
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: var(--brand-navy);
+            text-transform: capitalize;
         }
 
         .product-price {
@@ -247,7 +282,7 @@
             background-color: var(--brand-green);
         }
 
-        /* --- About & Contact Layout --- */
+        /* --- About & Contact --- */
         .content-box {
             background: white;
             padding: 3rem;
@@ -359,7 +394,7 @@
             background-color: #1ebe57;
         }
 
-        /* Floating WhatsApp Button */
+        /* Floating WhatsApp */
         .float-whatsapp {
             position: fixed;
             width: 60px;
@@ -384,7 +419,6 @@
             transform: scale(1.1);
         }
 
-        /* Footer */
         footer {
             background-color: var(--brand-navy);
             color: var(--brand-white);
@@ -419,29 +453,37 @@
                 <button class="slider-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
                 
                 <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 1">
+                    <img src="image/kitchenbanner.png" alt="Kitchen Banner">
                     <div class="slide-content">
-                        <h2>Welcome to Sovriad Global</h2>
-                        <p>Sell faster, Buy smarter.</p>
+                        <h2>Revamp Your Kitchen</h2>
+                        <p>Quality, affordable items for your home.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 2">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fashion Banner">
                      <div class="slide-content">
-                        <h2>Quality Products</h2>
-                        <p>Discover the best sellers in Port Harcourt.</p>
+                        <h2>Slay on a Budget</h2>
+                        <p>Affordable fashion items for everyone.</p>
                     </div>
                 </div>
-                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Store Banner 3">
+                <div class="slide">
+                    <img src="image/banner.png" alt="Sovriad Banner">
                      <div class="slide-content">
-                        <h2>Nationwide Delivery</h2>
-                        <p>Shop the latest trends today.</p>
+                        <h2>Welcome to Sovriad Global</h2>
+                        <p>Your one-stop shop for quality and affordability.</p>
                     </div>
                 </div>
             </div>
 
-            <h2 class="section-title">Trending Products in Nigeria</h2>
+            <h2 class="section-title">Our Products</h2>
+
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                <button class="filter-btn" onclick="filterProducts('kitchen')">Kitchen & Home</button>
+                <button class="filter-btn" onclick="filterProducts('fashion')">Fashion</button>
+                <button class="filter-btn" onclick="filterProducts('beauty')">Beauty</button>
+                <button class="filter-btn" onclick="filterProducts('gadgets')">Gadgets</button>
+            </div>
             
             <div class="product-grid" id="product-grid">
                 </div>
@@ -524,45 +566,31 @@
     <script>
         /* --- JavaScript Functionality --- */
 
-        // Product Data
+        // 1. UPDATED PRODUCT DATA
         const products = [
-            {
-                id: 1,
-                name: "Mango Shoe Premium",
-                price: 15000,
-                // Make sure to add this file to your 'image' folder
-                image: '<img src="image/mangoshoe.jpg" alt="Mango Shoe" onerror="this.src=\'https://via.placeholder.com/300x200?text=Mango+Shoe\'">' 
-            },
-            {
-                id: 2,
-                name: "Professional Speakers",
-                price: 85000,
-                image: '<img src="image/speakers.jpg" alt="Speakers" onerror="this.src=\'https://via.placeholder.com/300x200?text=Speakers\'">'
-            },
-            {
-                id: 3,
-                name: "Quality Office Shirt",
-                price: 7500,
-                image: '<img src="image/shirt.jpg" alt="Shirt" onerror="this.src=\'https://via.placeholder.com/300x200?text=Office+Shirt\'">'
-            },
-            {
-                id: 4,
-                name: "Slim Laptop Pro",
-                price: 450000,
-                image: '<img src="image/laptop.jpg" alt="Laptop" onerror="this.src=\'https://via.placeholder.com/300x200?text=Laptop\'">'
-            },
-            {
-                id: 5,
-                name: "Wireless Headphones",
-                price: 25000,
-                 image: '<img src="image/headphones.jpg" alt="Headphones" onerror="this.src=\'https://via.placeholder.com/300x200?text=Headphones\'">'
-            },
-             {
-                id: 6,
-                name: "Smart Watch Series 5",
-                price: 30000,
-                 image: '<img src="image/smartwatch.jpg" alt="Smartwatch" onerror="this.src=\'https://via.placeholder.com/300x200?text=Smart+Watch\'">'
-            }
+            // --- UPDATED ITEMS ---
+            { id: 15, name: "Whitening Particle Serum", price: 4500, category: "beauty", image: 'image/Whiteningparticleserum.jpg' },
+            { id: 14, name: "16\" LCD Writing Tablet", price: 7500, category: "gadgets", image: 'image/writingtablet.jpg' },
+            { id: 13, name: "Water Filter", price: 2000, category: "kitchen", image: 'image/waterfilter.jpg' },
+            { id: 9, name: "Np07 smp 14pcs Non-stick Pot", price: 85000, category: "kitchen", image: 'image/nonstickpot.jpg' },
+            { id: 5, name: "Dry Grinder", price: 10000, category: "kitchen", image: 'image/Drygrinder.jpg' },
+            { id: 2, name: "Big Maximus Electric Kettle (7 Litres)", price: 23500, category: "kitchen", image: 'image/Bigmaximuskettle.jpg' },
+            { id: 11, name: "2.3 Liters Smurfet Kettle", price: 18000, category: "kitchen", image: 'image/SMURFETKETTLE.jpg' },
+            { id: 6, name: "20L Century Microwave with Grill", price: 103500, category: "kitchen", image: 'image/Electricoven.jpg' },
+            { id: 10, name: "Queen Sneakers (Size 38-42)", price: 9500, category: "fashion", image: 'image/Queensneakers.jpg' },
+            
+            // --- NEW ITEMS ADDED (Please add images for these!) ---
+            { id: 16, name: "Tea Tree Anti-dandruff Hair Conditioner", price: 6800, category: "beauty", image: 'image/teatree.jpg' },
+            { id: 17, name: "Wall Clock", price: 7000, category: "kitchen", image: 'image/wallclock.jpg' },
+            { id: 18, name: "12 Layers Bosch Dehydrator", price: 78000, category: "kitchen", image: 'image/dehydrator.jpg' },
+
+            // --- OTHER EXISTING ITEMS ---
+            { id: 1, name: "Brown Handbag", price: 8500, category: "fashion", image: 'image/bagbrown.jpg' },
+            { id: 3, name: "Coffee Exfoliating Scrub", price: 4500, category: "beauty", image: 'image/coffeeexfoliating.jpg' },
+            { id: 4, name: "Dark Handbag", price: 8500, category: "fashion", image: 'image/darkhandbag.jpg' },
+            { id: 7, name: "Ladies Shoe", price: 10000, category: "fashion", image: 'image/femaleshoe.jpg' },
+            { id: 8, name: "Mango Shoe", price: 15000, category: "fashion", image: 'image/mangoshoe.jpg' },
+            { id: 12, name: "Vacuum Flask", price: 5500, category: "kitchen", image: 'image/vacuumflask.jpg' },
         ];
 
         let cart = [];
@@ -595,17 +623,32 @@
             changeSlide(1);
         }, 5000);
 
-        // Render Products
-        function renderProducts() {
+        // Render Products with Filtering
+        function filterProducts(category) {
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            renderProducts(category);
+        }
+
+        function renderProducts(filter = 'all') {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = ''; 
 
-            products.forEach(product => {
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.classList.add('product-card');
+                
+                // Construct HTML with the file path from the object
                 card.innerHTML = `
                     <div class="product-image-container">
-                        ${product.image} 
+                        <span class="category-tag">${product.category}</span>
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Coming+Soon'">
                     </div>
                     <div class="product-info">
                         <div>
@@ -685,7 +728,7 @@
         }
 
         // Initialization
-        renderProducts();
+        renderProducts(); // Initial load (shows all)
         showSlide(0);
 
     </script>
