@@ -15,7 +15,7 @@
             --brand-light-gray: #f4f4f4;
             --text-dark: #333;
             --whatsapp-color: #25D366;
-            --alert-red: #d32f2f; /* Red for the ticker */
+            --alert-red: #d32f2f;
         }
 
         * {
@@ -30,7 +30,7 @@
             color: var(--text-dark);
         }
 
-        /* --- NEWS TICKER (New Feature) --- */
+        /* --- NEWS TICKER --- */
         .news-ticker-container {
             background-color: var(--alert-red);
             color: white;
@@ -44,17 +44,16 @@
         .news-ticker-text {
             display: inline-block;
             white-space: nowrap;
-            animation: scroll-left 25s linear infinite; /* Adjust speed here (25s) */
+            animation: scroll-left 25s linear infinite;
             font-weight: bold;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Animation Keyframes */
         @keyframes scroll-left {
-            0% { transform: translateX(100vw); } /* Start off-screen right */
-            100% { transform: translateX(-100%); } /* End off-screen left */
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
         }
 
         /* Header & Navigation */
@@ -591,7 +590,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="soralogomain.jpg" alt="Sovira Global Store" class="logo-img" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
+            <img src="soviralogomain.jpg" alt="Sovira Global Store" class="logo-img" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
             <div id="alt-logo" class="logo" style="display:none;">Sovira <span>Global</span></div>
         </div>
         
@@ -737,24 +736,23 @@
         /* --- JavaScript Functionality --- */
 
         // 1. UPDATED PRODUCT DATA
+        // Filenames match your provided screenshot exactly
         const products = [
-            // --- NEW ITEMS (You must upload 12inchesRGB.jpg, WirelessMic.jpg, Videomakingkit.jpg) ---
-            { id: 22, name: "Baggy Stone Jean (Age 4-14)", price: 17500, category: "fashion", image: 'Baggyjean.jpg', desc: "Quality stone wash baggy jeans for kids." },
-            { id: 20, name: "10\" Ring Light with Tripod", price: 12500, category: "gadgets", image: '10inchesringlight.jpg', desc: "Phone holder, tripod stand, 3 light filters. Powerbank/Electric support." },
-            { id: 21, name: "14\" Ring Light (3 Phone Holders)", price: 19500, category: "gadgets", image: '14inchesringlight.jpg', desc: "3 phone holders, tripod, 3 light filters. Powerbank/Electric support." },
-            { id: 24, name: "12\" RGB Ring Light with Tripod", price: 17000, category: "gadgets", image: '12inchesRGB.jpg', desc: "RGB Colors, Phone holder, tripod stand. Powerbank/Electric support." },
-            { id: 25, name: "3in1 Wireless Mic (Noise Cancel)", price: 18000, category: "gadgets", image: 'WirelessMic.jpg', desc: "Dual Noise Cancellation for professional audio." },
-            { id: 23, name: "Mini Karaoke Bluetooth Speaker", price: 13500, category: "gadgets", image: 'Karaokebluetooth.jpg', desc: "Comes with 2 microphones for duet singing." },
-            { id: 26, name: "Video Making Kit", price: 9000, category: "gadgets", image: 'Videomakingkit.jpg', desc: "Complete kit for content creators." },
+            // --- NEW & FIXED ITEMS ---
+            { id: 25, name: "3in1 Wireless Mic (Noise Cancel)", price: 18000, category: "gadgets", image: 'microphonenoisecanceldual.jpg', desc: "Dual Noise Cancellation for professional audio." },
+            { id: 23, name: "Mini Karaoke Bluetooth Speaker", price: 13500, category: "gadgets", image: 'Karaokebluetooth .jpg', desc: "Comes with 2 microphones for duet singing." },
+            { id: 26, name: "Video Making Kit", price: 9000, category: "gadgets", image: 'videokits.jpg', desc: "Complete kit for content creators." },
+            { id: 24, name: "12\" RGB Ring Light with Tripod", price: 17000, category: "gadgets", image: 'RGBringlight.jpg', desc: "RGB Colors, Phone holder, tripod stand. Powerbank/Electric support." },
             
-            // --- UPDATED FILES (Case Sensitive Repairs) ---
+            // --- OTHER ITEMS FROM FILE LIST ---
+            { id: 22, name: "Baggy Stone Jean (Age 4-14)", price: 17500, category: "fashion", image: 'Baggyjean.jpg', desc: "Quality stone wash baggy jeans for kids." },
+            { id: 20, name: "10\" Ring Light with Tripod", price: 12500, category: "gadgets", image: '10inchesringlight.jpg', desc: "Phone holder, tripod stand, 3 light filters." },
+            { id: 21, name: "14\" Ring Light (3 Phone Holders)", price: 19500, category: "gadgets", image: '14inchesringlight.jpg', desc: "3 phone holders, tripod, 3 light filters." },
             { id: 16, name: "Tea Tree Anti-dandruff Conditioner", price: 6800, category: "beauty", image: 'Teatreeantidandruff.jpg', desc: "Effective anti-dandruff treatment for hair." }, 
             { id: 17, name: "Wall Clock", price: 7000, category: "kitchen", image: 'WallClock.jpg', desc: "Stylish wall clock for home or office." },
             { id: 15, name: "Whitening Particle Serum", price: 4500, category: "beauty", image: 'Whiteningparticleserum.jpg', desc: "Advanced serum for skin brightening." },
             { id: 2, name: "Big Maximus Kettle (7L)", price: 23500, category: "kitchen", image: 'Bigmaximuskettle.jpg', desc: "Large capacity electric kettle." },
             { id: 6, name: "20L Century Oven", price: 103500, category: "kitchen", image: 'Electricoven.jpg', desc: "Durable microwave oven with grill function." },
-
-            // --- EXISTING ITEMS ---
             { id: 14, name: "16\" LCD Writing Tablet", price: 7500, category: "gadgets", image: 'writingtablet.jpg', desc: "Perfect for kids learning and drawing." },
             { id: 13, name: "Water Filter", price: 2000, category: "kitchen", image: 'waterfilter.jpg', desc: "Clean water filtration system." },
             { id: 9, name: "Np07 smp 14pcs Pot", price: 85000, category: "kitchen", image: 'nonstickpot.jpg', desc: "Complete non-stick cookware set." },
