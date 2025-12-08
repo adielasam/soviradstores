@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovriad Global Store</title>
+    <title>Sovira Global Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- CSS Styles --- */
@@ -431,7 +431,7 @@
 <body>
 
     <header>
-        <div class="logo">Sovriad <span>Global Store</span></div>
+        <div class="logo">Sovira <span>Global Store</span></div>
         <nav>
             <ul>
                 <li><a onclick="showSection('home')">Home</a></li>
@@ -467,9 +467,9 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="banner.png" alt="Sovriad Banner">
+                    <img src="banner.png" alt="Sovira Banner">
                      <div class="slide-content">
-                        <h2>Welcome to Sovriad Global</h2>
+                        <h2>Welcome to Sovira Global</h2>
                         <p>Your one-stop shop for quality and affordability.</p>
                     </div>
                 </div>
@@ -490,7 +490,7 @@
         </section>
 
         <section id="about" class="page-section">
-             <h2 class="section-title">About Sovriad Global Services</h2>
+             <h2 class="section-title">About Sovira Global Services</h2>
              <div class="content-box">
                  <p style="font-size: 1.1rem; margin-bottom: 1rem;">
                      <strong>SGS is your sure plug 👍. All items are sold at wholesale prices.</strong>
@@ -509,7 +509,7 @@
                  
                  <div style="margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1.5rem; text-align: center;">
                     <p>We're Google verified! We will appreciate if you drop reviews and ratings.</p>
-                    <p>Thank you for choosing Sovriad Global Services.</p>
+                    <p>Thank you for choosing Sovira Global Services.</p>
                     <br>
                     <a href="https://bit.ly/3YK7GLH" target="_blank" class="highlight-link">
                         <i class="fab fa-google"></i> Review us on Google
@@ -559,7 +559,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2023 Sovriad Global Store. All rights reserved.</p>
+        <p>&copy; 2023 Sovira Global Store. All rights reserved.</p>
     </footer>
 
 
@@ -567,7 +567,6 @@
         /* --- JavaScript Functionality --- */
 
         // 1. UPDATED PRODUCT DATA
-        // I have removed "image/" from all paths because you uploaded items individually.
         const products = [
             // --- UPDATED ITEMS ---
             { id: 15, name: "Whitening Particle Serum", price: 4500, category: "beauty", image: 'Whiteningparticleserum.jpg' },
@@ -577,12 +576,14 @@
             { id: 5, name: "Dry Grinder", price: 10000, category: "kitchen", image: 'Drygrinder.jpg' },
             { id: 2, name: "Big Maximus Electric Kettle (7 Litres)", price: 23500, category: "kitchen", image: 'Bigmaximuskettle.jpg' },
             { id: 11, name: "2.3 Liters Smurfet Kettle", price: 18000, category: "kitchen", image: 'SMURFETKETTLE.jpg' },
-            { id: 6, name: "20L Century Microwave with Grill", price: 103500, category: "kitchen", image: 'Electricoven.jpg' },
+            { id: 6, name: "20L Century Microwave with Grill", price: 103500, category: "kitchen", image: 'microwavewithgrill.jpg' },
             { id: 10, name: "Queen Sneakers (Size 38-42)", price: 9500, category: "fashion", image: 'Queensneakers.jpg' },
             
-            // --- NEW ITEMS (Ensure these filenames match exactly what you uploaded) ---
+            // --- FIX FOR WALL CLOCK (Case Sensitive!) ---
+            { id: 17, name: "Wall Clock", price: 7000, category: "kitchen", image: 'WallClock.jpg' },
+
+            // --- MISSING ITEMS (You must upload 'teatree.jpg' and 'dehydrator.jpg'!) ---
             { id: 16, name: "Tea Tree Anti-dandruff Hair Conditioner", price: 6800, category: "beauty", image: 'teatree.jpg' },
-            { id: 17, name: "Wall Clock", price: 7000, category: "kitchen", image: 'wallclock.jpg' },
             { id: 18, name: "12 Layers Bosch Dehydrator", price: 78000, category: "kitchen", image: 'dehydrator.jpg' },
 
             // --- OTHER EXISTING ITEMS ---
@@ -649,7 +650,7 @@
                 card.innerHTML = `
                     <div class="product-image-container">
                         <span class="category-tag">${product.category}</span>
-                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Coming+Soon'">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Upload+Photo'">
                     </div>
                     <div class="product-info">
                         <div>
